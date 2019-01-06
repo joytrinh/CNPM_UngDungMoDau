@@ -1,5 +1,14 @@
 ﻿@{
-    Layout = null;
+    //Biến nhập liệu: không có
+    string LoiChao = "";//Biến kết quả
+    string ChuoiHTML = "";
+
+    LoiChao = "Xin chào Khách tham quan";//Xử lý nghiệp vụ: tính toán kết quả
+
+    //Xử lý giao diện: tạo chuỗi HTML
+    string ChuoiHTML_LoiChao = "<div>" + LoiChao + "<br/> Đây là Ứng dụng Web <b> Xử lý giao diện (Kết Xuất) </b> đầu tiên của tôi";
+    string ChuoiHTML_HinhAnh = "<img src='Media/KhachThamQuan.jpg' width='150' height='150'> <br/>";
+    ChuoiHTML = ChuoiHTML_HinhAnh + ChuoiHTML_LoiChao;
 }
 
 <!DOCTYPE html>
@@ -11,7 +20,7 @@
 </head>
 <body>
     <div>
-    
+        @Html.Raw(ChuoiHTML)
     </div>
 </body>
 </html>

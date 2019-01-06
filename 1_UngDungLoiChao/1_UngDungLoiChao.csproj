@@ -85,7 +85,7 @@
     <Content Include="Media\02.jpg" />
     <Content Include="Media\03.jpg" />
     <Content Include="Media\04.jpg" />
-    <Content Include="Media\05.jpg" />
+    <Content Include="Media\KhachThamQuan.jpg" />
     <Content Include="MH_ChaoKhachThamQuan.cshtml" />
     <Content Include="DuLieu\NV1.json" />
     <None Include="packages.config" />

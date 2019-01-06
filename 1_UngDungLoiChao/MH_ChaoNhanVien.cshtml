@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+    string MaSo = "";//Biến nhập liệu
+    string LoiChao = "";//Biến kết quả
+    string ChuoiHTML = "";
+
+    if (IsPost)
+    {
+        MaSo = Request["MaSo"];
+        var DuongDan = Server.MapPath(".\\DuLieu\\"+ MaSo + ".json");
+        var HopLe = File.Exists(DuongDan);
+
+        if (HopLe)//Xử lý nghiệp vụ: Kiểm tra
+        {
+            var NhanVien = new XL_NhanVien();
+            var ChuoiLuuTru = File.ReadAllText(DuongDan);
+            var XuLy = new System.Web.Script.Serialization.JavaScriptSerializer();
+            NhanVien = (XL_NhanVien)XuLy.Deserialize(ChuoiLuuTru, NhanVien.GetType());
+
+            //Xử lý nghiệp vụ: Tính toán
+            NhanVien.SoLanChao++;
+            LoiChao = "Xin chào " + NhanVien.HoTen + ". Số lần đã chào là: " + NhanVien.SoLanChao;//Xử lý nghiệp vụ: tính toán kết quả
+
+            //Xử lý giao diện: tạo chuỗi HTML
+            string ChuoiHTML_LoiChao = "<div>" + LoiChao + "<br/> Đây là Ứng dụng Web <b> Xử lý Lưu trữ (Đọc/Ghi)</b> đầu tiên của tôi";
+            string ChuoiHTML_HinhAnh = "<img src='Media/" + MaSo + ".jpg' width='150' height='200'> <br/>";
+            ChuoiHTML = ChuoiHTML_HinhAnh + ChuoiHTML_LoiChao;
+
+            //Xử lý lưu trữ: Ghi
+            ChuoiLuuTru = XuLy.Serialize(NhanVien);
+            File.WriteAllText(DuongDan, ChuoiLuuTru);
+        }
+        else
+        {
+            ChuoiHTML = "<div>" + "Xin vui lòng nhập mã số nhân viên"
+                + "<br/> Click đồng ý => Nếu hợp lệ ứng dụng sẽ chào anh/chị"
+                + "<div>";//Xử lý giao diện: kết xuất chuỗi HTML
+        }
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <form method="post" action="~/MH_ChaoNhanVien.cshtml">
+            <div>
+                <input type="text" name="MaSo" placeholder="Vui long nhap ma so cua ban" required>
+                <button type="submit" class="btn btn-default">Đồng ý</button>
+            </div>
+            @Html.Raw(ChuoiHTML)
+        </form>
+    </div>
+</body>
+</html>

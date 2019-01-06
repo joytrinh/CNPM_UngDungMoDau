@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+    string MaSo = "";
+    string LoiChao = "";
+    string ChuoiHTML = "";
+
+    if (IsPost)
+    {
+        MaSo = Request["MaSo"];
+        var DuongDan = Server.MapPath(".\\DuLieu\\" + MaSo + ".json");
+        var HopLe = File.Exists(DuongDan);
+
+        if (HopLe)
+        {
+            var QuanLy = new XL_QuanLy();
+            var ChuoiLuuTru = File.ReadAllText(DuongDan);
+            var XuLy = new System.Web.Script.Serialization.JavaScriptSerializer();
+            QuanLy = (XL_QuanLy)XuLy.Deserialize(ChuoiLuuTru, QuanLy.GetType());
+
+            QuanLy.SoLanChao++;
+            LoiChao = "Xin chào " + QuanLy.HoTen + ". Số lần đã chào là: " + QuanLy.SoLanChao;//Xử lý nghiệp vụ: tính toán kết quả
+            string ChuoiHTML_LoiChao = "<div>" + LoiChao + "<br/> Đây là Ứng dụng Web <b> Xử lý Lưu trữ (Đọc/Ghi)</b> đầu tiên của tôi";
+            string ChuoiHTML_HinhAnh = "<img src='Media/" + MaSo + ".jpg' width='150' height='200'> <br/>";
+            ChuoiHTML = ChuoiHTML_HinhAnh + ChuoiHTML_LoiChao;
+
+            ChuoiLuuTru = XuLy.Serialize(QuanLy);
+            File.WriteAllText(DuongDan,ChuoiLuuTru);
+        }
+        else
+        {
+            ChuoiHTML = "<div>" + "Xin vui lòng nhập mã số quản lý"
+                        + "<br/> Click đồng ý => Nếu hợp lệ ứng dụng sẽ chào anh/chị"
+                        + "<div>";//Xử lý giao diện: kết xuất chuỗi HTML
+
+        }
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <form method="post" action="~/MH_ChaoQuanLy.cshtml">
+            <div>
+                <input type="text" name="MaSo" placeholder="Vui long nhap ma so" required />
+                <input type="submit" /> <br />
+            </div>
+            @Html.Raw(ChuoiHTML)
+        </form>
+    </div>
+</body>
+</html>

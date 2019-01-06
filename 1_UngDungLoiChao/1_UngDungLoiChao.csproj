@@ -81,13 +81,20 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Media\01.jpg" />
-    <Content Include="Media\02.jpg" />
-    <Content Include="Media\03.jpg" />
-    <Content Include="Media\04.jpg" />
+    <Content Include="Media\QL2.jpg" />
+    <Content Include="Media\QL1.jpg" />
+    <Content Include="Media\NV2.jpg" />
+    <Content Include="Media\NV1.jpg" />
+    <Content Include="Media\KhachHang.jpg" />
     <Content Include="Media\KhachThamQuan.jpg" />
     <Content Include="MH_ChaoKhachThamQuan.cshtml" />
     <Content Include="DuLieu\NV1.json" />
+    <Content Include="MH_ChaoKhachHang.cshtml" />
+    <Content Include="MH_ChaoNhanVien.cshtml" />
+    <Content Include="DuLieu\NV2.json" />
+    <Content Include="MH_ChaoQuanLy.cshtml" />
+    <Content Include="DuLieu\QL1.json" />
+    <Content Include="DuLieu\QL2.json" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -100,6 +107,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="XL_QuanLy.cs" />
+    <Compile Include="XL_NhanVien.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

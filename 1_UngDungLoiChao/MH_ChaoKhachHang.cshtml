@@ -1,0 +1,46 @@
+﻿@{
+    Layout = null;
+    string HoTen = "";//Biến nhập liệu
+    string LoiChao = "";//Biến kết quả
+    string ChuoiHTML = "";
+
+    if (IsPost)
+    {
+        HoTen = Request["HoTen"];
+        var HopLe = HoTen.Trim();
+
+        if (HopLe != "")//Xử lý nghiệp vụ: Kiểm tra
+        {
+            LoiChao = "Xin chào " + HoTen;//Xử lý nghiệp vụ: tính toán kết quả
+
+            //Xử lý giao diện: tạo chuỗi HTML
+            string ChuoiHTML_LoiChao = "<div>" + LoiChao + "<br/> Đây là Ứng dụng Web <b> Xử lý giao diện (Nhập liệu)</b> đầu tiên của tôi";
+            string ChuoiHTML_HinhAnh = "<img src='Media/KhachHang.jpg' width='150' height='200'> <br/>";
+            ChuoiHTML = ChuoiHTML_HinhAnh + ChuoiHTML_LoiChao;
+        }
+        else
+        {
+            ChuoiHTML = "<div>" + "Xin vui lòng Nhập Họ tên khác trống" + "<br/> Click đồng ý => Nếu hợp lệ ứng dụng sẽ chào anh/chị" + "<div>";//Xử lý giao diện: kết xuất chuỗi HTML
+        }
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <form method="post" action="~/MH_ChaoKhachHang.cshtml">
+            <div>
+                <input type="text" name="HoTen" placeholder="Vui long nhap ho ten" required>
+                <button type="submit" class="btn btn-default">Đồng ý</button>
+            </div>
+            @Html.Raw(ChuoiHTML)
+        </form>       
+    </div>
+</body>
+</html>

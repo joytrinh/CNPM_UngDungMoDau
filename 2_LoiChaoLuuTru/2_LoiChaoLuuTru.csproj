@@ -88,6 +88,7 @@
     <Content Include="DuLieu\QuanLy\QL_1.json" />
     <Content Include="1. ManHinh\MH_ChaoNhanVien.cshtml" />
     <Content Include="1. ManHinh\MH_ChaoKhachThamQuan.cshtml" />
+    <Content Include="1. ManHinh\MH_ChaoKhachHang.cshtml" />
     <None Include="packages.config" />
     <Content Include="Media\KHACH_HANG_0.png" />
     <Content Include="Media\KHACH_HANG_1.png" />

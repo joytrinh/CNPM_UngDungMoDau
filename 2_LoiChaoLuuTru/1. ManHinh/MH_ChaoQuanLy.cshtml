@@ -1,4 +1,5 @@
 ﻿@{
+    var DanhSachQuanLy = XL_LUUTRU.DocDanhSachQuanLy();
     var DanhSachNhanVien = XL_LUUTRU.DocDanhSachNhanVien();
     string TenDangNhap = "";
     string MatKhau = "";
@@ -9,19 +10,17 @@
         TenDangNhap = Request["TenDangNhap"];
         MatKhau = Request["MatKhau"];
     }
-    var NhanVien = DanhSachNhanVien.FirstOrDefault(NV => NV.TenDangNhap == TenDangNhap && NV.MatKhau == MatKhau);
-    var HopLe = NhanVien != null;
+    var QuanLy = DanhSachQuanLy.FirstOrDefault(QL => QL.TenDangNhap == TenDangNhap && QL.MatKhau == MatKhau);
+    var HopLe = QuanLy != null;
     if (HopLe)
     {
-        NhanVien.DanhSachCacLanDangNhap.Add(DateTime.Now);
-        XL_LUUTRU.GhiNhanVien(NhanVien);
-        LoiChao = "Xin chào Nhân viên " + NhanVien.HoTen;
+        QuanLy.DanhSachCacLanDangNhap.Add(DateTime.Now);
+        XL_LUUTRU.GhiQuanLy(QuanLy);
+        LoiChao = "<b> Trân trọng kính chào Quản lý </b>" + QuanLy.HoTen;
         string chuoiHTML_LoiChao = "<div>" + LoiChao + "<br/>Số lần đăng nhập hiện nay là "
-            + NhanVien.DanhSachCacLanDangNhap.Count + "<br/> Anh Chị đã được phân công "
-            + NhanVien.DanhSachMaSoNhomHang.Count +
-            " Nhóm hàng <br/> Chi tiết về các lần đăng nhập và Nhóm hàng " +
-            "xin hẹn phiên bản sau <br/> Đây là ứng dụng Web " +
-            "<b> dành riêng Xử lý Lưu trữ </b> của tôi";
+            + QuanLy.DanhSachCacLanDangNhap.Count + "<br/> Số nhân viên hiện nay " + DanhSachNhanVien.Count +
+            "<br/> Chi tiết về các lần đăng nhập và Nhân viên xin hẹn phiên bản sau" +
+            " <br/> Đây là ứng dụng Web <b> dành riêng Xử lý Lưu trữ </b> của tôi";
         string chuoiHTML_HinhAnh = "<img src='../Media/" + TenDangNhap + ".png' width='150' height='200'> <br/>";
         chuoiHTML = chuoiHTML_HinhAnh + chuoiHTML_LoiChao;
     }

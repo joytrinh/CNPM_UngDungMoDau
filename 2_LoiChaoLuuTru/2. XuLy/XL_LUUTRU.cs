@@ -41,11 +41,32 @@ public class XL_LUUTRU
         });
         return DanhSachNhanVien;
     }
+    public static List<XL_QUANLY> DocDanhSachQuanLy()
+    {
+        List<XL_QUANLY> DanhSachQuanLy = new List<XL_QUANLY>();
+        ThuMucQuanLy.GetFiles("*.json").ToList().ForEach(TapTin =>
+        {
+            var DuongDan = TapTin.FullName;
+            var ChuoiLuuTru = File.ReadAllText(DuongDan);
+            var XuLy = new JavaScriptSerializer();
+            var QuanLy = new XL_QUANLY();
+            QuanLy = (XL_QUANLY)XuLy.Deserialize(ChuoiLuuTru, QuanLy.GetType());
+            DanhSachQuanLy.Add(QuanLy);
+        });
+        return DanhSachQuanLy;
+    }
     public static void GhiNhanVien(XL_NHANVIEN NhanVien)
     {
         var XuLy = new JavaScriptSerializer();
         var ChuoiLuuTru = XuLy.Serialize(NhanVien);
         var DuongDan = $"{ThuMucNhanVien.FullName}\\{NhanVien.MaSo}.json";
+        File.WriteAllText(DuongDan, ChuoiLuuTru);
+    }
+    public static void GhiQuanLy(XL_QUANLY QuanLy)
+    {
+        var XuLy = new JavaScriptSerializer();
+        var ChuoiLuuTru = XuLy.Serialize(QuanLy);
+        var DuongDan = $"{ThuMucQuanLy.FullName}\\{QuanLy.MaSo}.json";
         File.WriteAllText(DuongDan, ChuoiLuuTru);
     }
 }
